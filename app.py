@@ -13,15 +13,8 @@ cryptos = [
 
 @app.route('/')
 def home():
-    ab =" sidao"
-    brind= ''' 
-            fgsdfgsdf
-            asdfasdf
-            dsfsda
-            dfasd
-            fa
-                        ''' f'{ab}' '''
-        '''    
+    ab =" TESTE DE TEXTO PASSADO DIFERENTE "
+    brind= '''             ''' f'{ab}' '''          '''    
 
     print(brind)
     return render_template('index.html', cryptos=cryptos)
@@ -44,8 +37,8 @@ def fetch():
     data = {
         "codigo": [101, 102, 103],
         "Juncao": ["Dept A", "Dept B", "Dept Ccc"],
-        "Juncao": ["Dept A", "Dept B", "Dept C"],
-        "Juncao": ["Dept A", "Dept B", "Dept Cas12"],
+        "Juncao": ["Dept A1", "Dept B", "Dept C123"],
+        "Juncao": ["Dept A2", "Dept B", "Dept Cas12"],
         "nm_func": ["Alice", "Bob", "Carlos"]
     }
 
