@@ -6,7 +6,7 @@ app = Flask(__name__)
 
 # Dados simulados de criptomoedas
 cryptos = [
-    {"name": "Bitcoin", "symbol": "BTC", "price": 57000},
+    {"name": "Bitcoin", "symbol": "BTC", "price": 58000},
     {"name": "Ethereum", "symbol": "ETH", "price": 3600},
     {"name": "Binance Coin", "symbol": "BNB", "price": 500},
 ]
