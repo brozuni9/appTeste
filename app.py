@@ -43,9 +43,9 @@ def fetch():
     # Criando o DataFrame
     data = {
         "codigo": [101, 102, 103],
+        "Juncao": ["Dept A", "Dept B", "Dept Ccc"],
         "Juncao": ["Dept A", "Dept B", "Dept C"],
-        "Juncao": ["Dept A", "Dept B", "Dept C"],
-        "Juncao": ["Dept A", "Dept B", "Dept C"],
+        "Juncao": ["Dept A", "Dept B", "Dept Cas12"],
         "nm_func": ["Alice", "Bob", "Carlos"]
     }
 
