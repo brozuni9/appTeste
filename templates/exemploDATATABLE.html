@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DataTable com Pesquisa</title>
+    <!-- Inclua o CSS do DataTables -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.css">
+
+
+    <style>
+        .btn-estiloso {
+            background-color: #007BFF; /* Azul */
+            color: white; /* Texto branco */
+            padding: 10px 20px; /* Espaçamento interno */
+            font-size: 16px; /* Tamanho da fonte */
+            border: none; /* Sem borda */
+            border-radius: 5px; /* Bordas arredondadas */
+            cursor: pointer; /* Cursor de ponteiro */
+            transition: background-color 0.3s ease; /* Transição suave */
+        }
+
+        .btn-estiloso:hover {
+            background-color: #0056b3; /* Azul mais escuro ao passar o mouse */
+        }
+    </style>
+
+
+</head>
+<body>
+    <h1>Exemplo de DataTable</h1>
+    <table id="example" class="display">
+        <thead>
+            <tr>
+                <th>Nome</th>
+                <th>Idade</th>
+                <th>Cidade</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>                <td>João</td>     <td>28</td>    <td>São Paulo</td>           </tr>
+            <tr>                <td>Maria</td>    <td>22</td>    <td>Rio de Janeiro</td>      </tr>
+            <tr>                <td>Carlos</td>   <td>35</td>    <td>Belo Horizonte</td>      </tr>
+            <tr>                <td>BRUNA</td>    <td>22</td>    <td>Rio de Janeiro</td>      </tr>
+            <tr>                <td>RICARDO</td>    <td>50</td>  <td>PARANA</td>              </tr>
+
+        </tbody>
+    </table>
+
+    <br>
+    <br>
+    <br>
+    <button id="fetch-button" class="btn-estiloso">Troca tabela</button>
+
+
+
+    <!-- Inclua o jQuery -->
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <!-- Inclua o JavaScript do DataTables -->
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.js"></script>
+    <script>
+       
+
+       function configuraDataTable(){
+                $('#example').DataTable({
+                        "order": [],
+                        "responsive": true,
+                        "Processing": true,
+                        "deferRender": true,
+                        "retrieve": true,
+                        dom: 'lBfrtip',    
+                        "sPaginationType": "full_numbers",
+                        "lengthMenu": [[5,10, 25, 50, 100], [5,10, 25, 50, 100]],
+                        "language": {
+                            "decimal": ",",
+                            "thousands": ".",
+                            "lengthMenu": "Mostrar _MENU_ ",
+                            "zeroRecords": "Não encontrado...",
+                            "info": "Mostrando Página _PAGE_ de _PAGES_ - _TOTAL_ Registros Totais",
+                            "infoEmpty": "Tabela sem Registros",
+                            "infoFiltered": "(Filtrado _TOTAL_ de _MAX_ Registros)",
+                            "sSearch": "",
+                            "oPaginate": {
+                                "sNext": "Próximo",
+                                "sPrevious": "Anterior",
+                                "sFirst": "Primeiro",
+                                "sLast": "Último"
+                            }
+                        }
+            
+                    });  
+                    
+            document.querySelectorAll(".dataTables_wrapper .dataTables_length, .dataTables_wrapper .dataTables_filter")[0].style.float = "left"   
+                    
+        }
+
+        configuraDataTable();
+
+        $(document).ready(function() {
+            $('#example').DataTable();
+        });
+
+        $('#fetch-button').on('click', function() {
+        $.ajax({
+            url: '/fetch',
+            method: 'GET',
+            success: function(data) {
+                var obj = JSON.parse(data);
+                debugger;
+
+                try {
+                    var table = $('#example').DataTable();
+                    table.clear().destroy();
+                } catch (e) { }
+
+                // Ajustar o cabeçalho
+                var Head = `
+                    <tr>
+                        <th>Código</th>
+                        <th>Junção</th>
+                        <th>Nome do Funcionário</th>
+                    </tr>`;
+                $("#example thead").html(Head);
+
+                var sidao = ` meu amigo sidao é um imundo  `
+                // Preencher o corpo da tabela
+                var cols = obj.map(x => `
+                    <tr>
+                        <td>${x.codigo} </td>
+                        <td>${x.Juncao} </td>
+                        <td>${x.nm_func} ${sidao}</td>
+                    </tr>`).join('');
+                $("#example tbody").html(cols);
+
+                configuraDataTable();
+            }
+            });
+        });
+
+
+    </script>
+</body>
+</html>
