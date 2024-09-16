@@ -7,7 +7,7 @@ body {
 }
 
 header {
-    background-color: #333;
+    background-color: #111;
     color: #a1966f;
     padding: 20px;
     display: flex;
@@ -61,7 +61,7 @@ nav ul li a {
         position: absolute;
         top: 60px;
         left: 0;
-        background-color: #333;
+        background-color: #111;
     }
 
     nav ul.show {
@@ -91,11 +91,11 @@ main {
 }
 
 h2 {
-    color: #333;
+    color: #111;
 }
 
 footer {
-    background-color: #333;
+    background-color: #111;
     color: #ddd8c9;
     text-align: center;
     padding: 10px;

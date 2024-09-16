@@ -1,29 +1,35 @@
 from flask import Flask, render_template
 import pandas as pd
+from Classes.banco import Bb
 
 app = Flask(__name__)
 
 
-# Dados simulados de criptomoedas
-cryptos = [
-    {"name": "Bitcoin", "symbol": "BTC", "price": 58000},
-    {"name": "Ethereum", "symbol": "ETH", "price": 3600},
-    {"name": "Binance Coin", "symbol": "BNB", "price": 500},
-]
+
 
 @app.route('/')
 def home():
     ab =" TESTE DE TEXTO PASSADO DIFERENTE "
     brind= '''             ''' f'{ab}' '''          '''    
-
     print(brind)
-    return render_template('index.html', cryptos=cryptos)
+
+    c,query_results = Bb().executaQuery(" exec PROJETO_FOREX.P_INSERIR_PRINCIPAL ")
+
+    # Obtendo os nomes das colunas
+    nomes_colunas = [descricao[0] for descricao in c]
+    
+    #print(nomes_colunas)
+    print(query_results)
+    
+    #= CASE WHEN RECOMENDACAO = 1 THEN '📈' ELSE '📉' END
+    
+    return render_template('index.html', nomes_colunas=nomes_colunas, query_results = query_results)
 
 
 
 @app.route('/pg1')
 def pg1():
-    return render_template('pagina1.html', cryptos=cryptos)
+    return render_template('pagina1.html')
 
 
 @app.route('/pgEx')
@@ -41,7 +47,7 @@ def fetch():
         "Juncao": ["Dept A2", "Dept B", "Dept Cas12"],
         "nm_func": ["Alice", "Bob", "Carlos"]
     }
-
+    
     df = pd.DataFrame(data)
     # Exibindo o DataFrame
     print(df)
@@ -52,7 +58,16 @@ def fetch():
 @app.route("/usuario/<usuario>")
 def validaUsuario(usuario):
     return render_template("Usuario.html", nm_usu = usuario) 
-    
+
+
 
 if __name__ == '__main__':
     app.run(debug=True)
+
+    
+
+
+
+
+
+

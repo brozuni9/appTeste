@@ -1,53 +1,33 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Crypto Prices</title>
 
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.css">
-    <script type="text/javascript" charset="utf8" src="https://code.jquery.com/jquery-3.5.1.js"></script>
-    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.js"></script>
-
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
-
-
-
-
-</head>
-<body>
-    <h1>Crypto Prices</h1>
-    {% if cryptos %}
-        <table id="#cryptoTable">
-            <tr>
-                <th>Name</th>
-                <th>Symbol</th>
-                <th>Price (USD)</th>
-            </tr>
-            {% for crypto in cryptos %}
-                {% if crypto.name and crypto.symbol and crypto.price %}
+        <br>
+        <!-- <table id="example" class="display"></table>    -->
+        {% if nomes_colunas %}
+            <table id="example" class="display">
+                <thead>    
                     <tr>
-                        <td>{{ crypto.name }}</td>
-                        <td>{{ crypto.symbol }}</td>
-                        <td>{{ crypto.price }}</td>
+                        {% for nm in nomes_colunas %}
+                          <th>{{nm}}</th>
+                        {% endfor %}
                     </tr>
-                {% else %}
+                </thead>
+                <tbody>   
+                    {% for query_result in query_results %}
                     <tr>
-                        <td colspan="3">Dados incompletos para esta criptomoeda.</td>
+                        {% for nm in query_result %}
+                            {% if loop.index0!=6 %}
+                                <td>{{ nm }}</td>
+                            {% else %}
+                                <td title="{{'Dados ainda não apurados, favor aguarde' if nm==0 else 'RECOMENDAÇÃO DE COMPRA' if nm==1 else 'RECOMENDAÇÃO DE VENDA'}}" > {{'aguardando resultado..' if nm==0 else '📈' if nm==1 else '📉'}}</td>    
+                            {% endif %}    
+                        {% endfor %}
                     </tr>
-                {% endif %}
-            {% endfor %}
-        </table>
-    {% else %}
-        <p>Nenhuma criptomoeda disponível.</p>
-    {% endif %}
-    <br>
-
-    <script>
-            $('#cryptoTable').DataTable();
-    </script>
-
-
-
-</body>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <p>Nenhuma criptomoeda disponível.</p>
+        {% endif %}
+        <br>
 </html>

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+
+        <br>
+        <!-- <table id="example" class="display"></table>    -->
+        {% if cryptos %}
+            <table id="example" class="display">
+                <thead>    
+                    <tr>
+                        <th>Name</th>
+                        <th>Symbol</th>
+                        <th>Price (USD)</th>
+                    </tr>
+                </thead>
+                <tbody>   
+                {% for crypto in cryptos %}
+                    {% if crypto.name and crypto.symbol and crypto.price %}
+                        <tr>
+                            <td>{{ crypto.name }}</td>
+                            <td>{{ crypto.symbol }}</td>
+                            <td>{{ crypto.price }}</td>
+                        </tr>
+                        {% endif %}
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <p>Nenhuma criptomoeda disponível.</p>
+        {% endif %}
+        <br>
+</html>
